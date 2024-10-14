@@ -1,0 +1,251 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ThemeKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.unscramble.ui.theme</a>
+</div>
+
+<h1>Coverage Summary for Class: ThemeKt (com.example.unscramble.ui.theme)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ThemeKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/76)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ThemeKt$UnscrambleTheme$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/76)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * Copyright (C) 2023 The Android Open Source Project
+&nbsp; *
+&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+&nbsp; * you may not use this file except in compliance with the License.
+&nbsp; * You may obtain a copy of the License at
+&nbsp; *
+&nbsp; *     https://www.apache.org/licenses/LICENSE-2.0
+&nbsp; *
+&nbsp; * Unless required by applicable law or agreed to in writing, software
+&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+&nbsp; * See the License for the specific language governing permissions and
+&nbsp; * limitations under the License.
+&nbsp; */
+&nbsp;
+&nbsp;package com.example.unscramble.ui.theme
+&nbsp;
+&nbsp;import android.os.Build
+&nbsp;import androidx.compose.foundation.isSystemInDarkTheme
+&nbsp;import androidx.compose.material3.MaterialTheme
+&nbsp;import androidx.compose.material3.lightColorScheme
+&nbsp;import androidx.compose.material3.darkColorScheme
+&nbsp;import androidx.compose.material3.dynamicDarkColorScheme
+&nbsp;import androidx.compose.material3.dynamicLightColorScheme
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.ui.platform.LocalContext
+&nbsp;
+<b class="nc">&nbsp;private val LightColors = lightColorScheme(</b>
+<b class="nc">&nbsp;    primary = md_theme_light_primary,</b>
+<b class="nc">&nbsp;    onPrimary = md_theme_light_onPrimary,</b>
+<b class="nc">&nbsp;    primaryContainer = md_theme_light_primaryContainer,</b>
+<b class="nc">&nbsp;    onPrimaryContainer = md_theme_light_onPrimaryContainer,</b>
+<b class="nc">&nbsp;    secondary = md_theme_light_secondary,</b>
+<b class="nc">&nbsp;    onSecondary = md_theme_light_onSecondary,</b>
+<b class="nc">&nbsp;    secondaryContainer = md_theme_light_secondaryContainer,</b>
+<b class="nc">&nbsp;    onSecondaryContainer = md_theme_light_onSecondaryContainer,</b>
+<b class="nc">&nbsp;    tertiary = md_theme_light_tertiary,</b>
+<b class="nc">&nbsp;    onTertiary = md_theme_light_onTertiary,</b>
+<b class="nc">&nbsp;    tertiaryContainer = md_theme_light_tertiaryContainer,</b>
+<b class="nc">&nbsp;    onTertiaryContainer = md_theme_light_onTertiaryContainer,</b>
+<b class="nc">&nbsp;    error = md_theme_light_error,</b>
+<b class="nc">&nbsp;    errorContainer = md_theme_light_errorContainer,</b>
+<b class="nc">&nbsp;    onError = md_theme_light_onError,</b>
+<b class="nc">&nbsp;    onErrorContainer = md_theme_light_onErrorContainer,</b>
+<b class="nc">&nbsp;    background = md_theme_light_background,</b>
+<b class="nc">&nbsp;    onBackground = md_theme_light_onBackground,</b>
+<b class="nc">&nbsp;    surface = md_theme_light_surface,</b>
+<b class="nc">&nbsp;    onSurface = md_theme_light_onSurface,</b>
+<b class="nc">&nbsp;    surfaceVariant = md_theme_light_surfaceVariant,</b>
+<b class="nc">&nbsp;    onSurfaceVariant = md_theme_light_onSurfaceVariant,</b>
+<b class="nc">&nbsp;    outline = md_theme_light_outline,</b>
+<b class="nc">&nbsp;    inverseOnSurface = md_theme_light_inverseOnSurface,</b>
+<b class="nc">&nbsp;    inverseSurface = md_theme_light_inverseSurface,</b>
+<b class="nc">&nbsp;    inversePrimary = md_theme_light_inversePrimary,</b>
+<b class="nc">&nbsp;    surfaceTint = md_theme_light_surfaceTint,</b>
+<b class="nc">&nbsp;    outlineVariant = md_theme_light_outlineVariant,</b>
+<b class="nc">&nbsp;    scrim = md_theme_light_scrim,</b>
+&nbsp;)
+&nbsp;
+<b class="nc">&nbsp;private val DarkColors = darkColorScheme(</b>
+<b class="nc">&nbsp;    primary = md_theme_dark_primary,</b>
+<b class="nc">&nbsp;    onPrimary = md_theme_dark_onPrimary,</b>
+<b class="nc">&nbsp;    primaryContainer = md_theme_dark_primaryContainer,</b>
+<b class="nc">&nbsp;    onPrimaryContainer = md_theme_dark_onPrimaryContainer,</b>
+<b class="nc">&nbsp;    secondary = md_theme_dark_secondary,</b>
+<b class="nc">&nbsp;    onSecondary = md_theme_dark_onSecondary,</b>
+<b class="nc">&nbsp;    secondaryContainer = md_theme_dark_secondaryContainer,</b>
+<b class="nc">&nbsp;    onSecondaryContainer = md_theme_dark_onSecondaryContainer,</b>
+<b class="nc">&nbsp;    tertiary = md_theme_dark_tertiary,</b>
+<b class="nc">&nbsp;    onTertiary = md_theme_dark_onTertiary,</b>
+<b class="nc">&nbsp;    tertiaryContainer = md_theme_dark_tertiaryContainer,</b>
+<b class="nc">&nbsp;    onTertiaryContainer = md_theme_dark_onTertiaryContainer,</b>
+<b class="nc">&nbsp;    error = md_theme_dark_error,</b>
+<b class="nc">&nbsp;    errorContainer = md_theme_dark_errorContainer,</b>
+<b class="nc">&nbsp;    onError = md_theme_dark_onError,</b>
+<b class="nc">&nbsp;    onErrorContainer = md_theme_dark_onErrorContainer,</b>
+<b class="nc">&nbsp;    background = md_theme_dark_background,</b>
+<b class="nc">&nbsp;    onBackground = md_theme_dark_onBackground,</b>
+<b class="nc">&nbsp;    surface = md_theme_dark_surface,</b>
+<b class="nc">&nbsp;    onSurface = md_theme_dark_onSurface,</b>
+<b class="nc">&nbsp;    surfaceVariant = md_theme_dark_surfaceVariant,</b>
+<b class="nc">&nbsp;    onSurfaceVariant = md_theme_dark_onSurfaceVariant,</b>
+<b class="nc">&nbsp;    outline = md_theme_dark_outline,</b>
+<b class="nc">&nbsp;    inverseOnSurface = md_theme_dark_inverseOnSurface,</b>
+<b class="nc">&nbsp;    inverseSurface = md_theme_dark_inverseSurface,</b>
+<b class="nc">&nbsp;    inversePrimary = md_theme_dark_inversePrimary,</b>
+<b class="nc">&nbsp;    surfaceTint = md_theme_dark_surfaceTint,</b>
+<b class="nc">&nbsp;    outlineVariant = md_theme_dark_outlineVariant,</b>
+<b class="nc">&nbsp;    scrim = md_theme_dark_scrim,</b>
+&nbsp;)
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun UnscrambleTheme(
+<b class="nc">&nbsp;    darkTheme: Boolean = isSystemInDarkTheme(),</b>
+&nbsp;    // Dynamic color is available on Android 12+
+&nbsp;    // Dynamic color in this app is turned off for learning purposes
+<b class="nc">&nbsp;    dynamicColor: Boolean = false,</b>
+&nbsp;    content: @Composable () -&gt; Unit
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    val colorScheme = when {</b>
+<b class="nc">&nbsp;        dynamicColor &amp;&amp; Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S -&gt; {</b>
+<b class="nc">&nbsp;            val context = LocalContext.current</b>
+<b class="nc">&nbsp;            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        darkTheme -&gt; DarkColors</b>
+<b class="nc">&nbsp;        else -&gt; LightColors</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    MaterialTheme(</b>
+<b class="nc">&nbsp;        colorScheme = colorScheme,</b>
+<b class="nc">&nbsp;        typography = Typography,</b>
+<b class="nc">&nbsp;        content = content,</b>
+<b class="nc">&nbsp;        shapes = Shapes</b>
+&nbsp;    )
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-14 02:39</div>
+</div>
+</body>
+</html>

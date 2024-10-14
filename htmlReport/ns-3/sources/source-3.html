@@ -1,0 +1,258 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GameViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.unscramble.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: GameViewModel (com.example.unscramble.ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (10/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (41/41)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * Copyright (C) 2023 The Android Open Source Project
+&nbsp; *
+&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+&nbsp; * you may not use this file except in compliance with the License.
+&nbsp; * You may obtain a copy of the License at
+&nbsp; *
+&nbsp; *     https://www.apache.org/licenses/LICENSE-2.0
+&nbsp; *
+&nbsp; * Unless required by applicable law or agreed to in writing, software
+&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+&nbsp; * See the License for the specific language governing permissions and
+&nbsp; * limitations under the License.
+&nbsp; */
+&nbsp;
+&nbsp;package com.example.unscramble.ui
+&nbsp;
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import com.example.unscramble.data.MAX_NO_OF_WORDS
+&nbsp;import com.example.unscramble.data.SCORE_INCREASE
+&nbsp;import com.example.unscramble.data.allWords
+&nbsp;import kotlinx.coroutines.flow.MutableStateFlow
+&nbsp;import kotlinx.coroutines.flow.StateFlow
+&nbsp;import kotlinx.coroutines.flow.asStateFlow
+&nbsp;import kotlinx.coroutines.flow.update
+&nbsp;
+&nbsp;/**
+&nbsp; * ViewModel containing the app data and methods to process the data
+&nbsp; */
+<b class="fc">&nbsp;class GameViewModel : ViewModel() {</b>
+&nbsp;
+&nbsp;    // Game UI state
+<b class="fc">&nbsp;    private val _uiState = MutableStateFlow(GameUiState())</b>
+<b class="fc">&nbsp;    val uiState: StateFlow&lt;GameUiState&gt; = _uiState.asStateFlow()</b>
+&nbsp;
+<b class="fc">&nbsp;    var userGuess by mutableStateOf(&quot;&quot;)</b>
+&nbsp;        private set
+&nbsp;
+&nbsp;    // Set of words used in the game
+<b class="fc">&nbsp;    private var usedWords: MutableSet&lt;String&gt; = mutableSetOf()</b>
+&nbsp;    private lateinit var currentWord: String
+&nbsp;
+<b class="fc">&nbsp;    init {</b>
+<b class="fc">&nbsp;        resetGame()</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Re-initializes the game data to restart the game.
+&nbsp;     */
+&nbsp;    fun resetGame() {
+<b class="fc">&nbsp;        usedWords.clear()</b>
+<b class="fc">&nbsp;        _uiState.value = GameUiState(currentScrambledWord = pickRandomWordAndShuffle())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Update the user&#39;s guess
+&nbsp;     */
+&nbsp;    fun updateUserGuess(guessedWord: String){
+<b class="fc">&nbsp;        userGuess = guessedWord</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Checks if the user&#39;s guess is correct.
+&nbsp;     * Increases the score accordingly.
+&nbsp;     */
+&nbsp;    fun checkUserGuess() {
+<b class="fc">&nbsp;        if (userGuess.equals(currentWord, ignoreCase = true)) {</b>
+&nbsp;            // User&#39;s guess is correct, increase the score
+&nbsp;            // and call updateGameState() to prepare the game for next round
+<b class="fc">&nbsp;            val updatedScore = _uiState.value.score.plus(SCORE_INCREASE)</b>
+<b class="fc">&nbsp;            updateGameState(updatedScore)</b>
+&nbsp;        } else {
+&nbsp;            // User&#39;s guess is wrong, show an error
+<b class="fc">&nbsp;            _uiState.update { currentState -&gt;</b>
+<b class="fc">&nbsp;                currentState.copy(isGuessedWordWrong = true)</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        // Reset user guess
+<b class="fc">&nbsp;        updateUserGuess(&quot;&quot;)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Skip to next word
+&nbsp;     */
+&nbsp;    fun skipWord() {
+<b class="fc">&nbsp;        updateGameState(_uiState.value.score)</b>
+&nbsp;        // Reset user guess
+<b class="fc">&nbsp;        updateUserGuess(&quot;&quot;)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Picks a new currentWord and currentScrambledWord and updates UiState according to
+&nbsp;     * current game state.
+&nbsp;     */
+&nbsp;    private fun updateGameState(updatedScore: Int) {
+<b class="fc">&nbsp;        if (usedWords.size == MAX_NO_OF_WORDS){</b>
+&nbsp;            //Last round in the game, update isGameOver to true, don&#39;t pick a new word
+<b class="fc">&nbsp;            _uiState.update { currentState -&gt;</b>
+<b class="fc">&nbsp;                currentState.copy(</b>
+<b class="fc">&nbsp;                    isGuessedWordWrong = false,</b>
+<b class="fc">&nbsp;                    score = updatedScore,</b>
+<b class="fc">&nbsp;                    isGameOver = true</b>
+&nbsp;                )
+&nbsp;            }
+&nbsp;        } else{
+&nbsp;            // Normal round in the game
+<b class="fc">&nbsp;            _uiState.update { currentState -&gt;</b>
+<b class="fc">&nbsp;                currentState.copy(</b>
+<b class="fc">&nbsp;                    isGuessedWordWrong = false,</b>
+<b class="fc">&nbsp;                    currentScrambledWord = pickRandomWordAndShuffle(),</b>
+<b class="fc">&nbsp;                    currentWordCount = currentState.currentWordCount.inc(),</b>
+<b class="fc">&nbsp;                    score = updatedScore</b>
+&nbsp;                )
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun shuffleCurrentWord(word: String): String {
+<b class="fc">&nbsp;        val tempWord = word.toCharArray()</b>
+&nbsp;        // Scramble the word
+<b class="fc">&nbsp;        tempWord.shuffle()</b>
+<b class="fc">&nbsp;        while (String(tempWord) == word) {</b>
+<b class="fc">&nbsp;            tempWord.shuffle()</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return String(tempWord)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun pickRandomWordAndShuffle(): String {
+&nbsp;        // Continue picking up a new random word until you get one that hasn&#39;t been used before
+<b class="fc">&nbsp;        currentWord = allWords.random()</b>
+<b class="pc">&nbsp;        return if (usedWords.contains(currentWord)) {</b>
+<b class="fc">&nbsp;            pickRandomWordAndShuffle()</b>
+&nbsp;        } else {
+<b class="pc">&nbsp;            usedWords.add(currentWord)</b>
+<b class="fc">&nbsp;            shuffleCurrentWord(currentWord)</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-14 02:39</div>
+</div>
+</body>
+</html>
